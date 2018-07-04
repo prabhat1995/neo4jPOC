@@ -3,7 +3,9 @@ package com.example.neo4jdemo.service;
 import com.example.neo4jdemo.entity.Person;
 import com.example.neo4jdemo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PersonService {
 
     @Autowired
