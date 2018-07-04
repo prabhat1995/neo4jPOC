@@ -37,5 +37,11 @@ public class GroupService {
 
         return groups;
 
-        }
+    }
+
+    public Collection<Group> getGroupDetails(String name){
+        Collection<Group> gp = groupRepository.graph(name);
+        return gp;
+    }
+
 }
