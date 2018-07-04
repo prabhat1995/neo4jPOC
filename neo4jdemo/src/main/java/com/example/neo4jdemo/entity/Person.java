@@ -1,4 +1,4 @@
-package com.example.neo4jdemo;
+package com.example.neo4jdemo.entity;
 
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -23,6 +23,6 @@ public class Person {
     }
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.OUTGOING)
-    public Set<Person> belongto;
+    public Set<Member> belongto;
 
 }
