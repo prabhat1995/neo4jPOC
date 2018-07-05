@@ -19,13 +19,13 @@ public class Group {
 
     private String name;
 
-    @JsonIgnoreProperties("belongto")
+    @JsonIgnoreProperties("group")
     @Relationship(type = "BELONGS_TO", direction = Relationship.INCOMING)
-    public Set<Member> belongto;
+    public Set<Member> members;
 
-    @JsonIgnoreProperties("hasAccessTo")
+    @JsonIgnoreProperties("group")
     @Relationship(type = "HAS_ACCESS", direction = Relationship.OUTGOING)
-    public List<Resource> hasAccessTo;
+    public List<Resource> resources;
 
     public String getName() {
         return name;
@@ -35,25 +35,19 @@ public class Group {
         this.name = name;
     }
 
-    public Set<Member> getBelongto() {
-        return belongto;
+    public Set<Member> getMembers() {
+        return members;
     }
 
-    public void setBelongto(Set<Member> belongto) {
-        this.belongto = belongto;
+    public void setMembers(Set<Member> members) {
+        this.members = members;
     }
 
-    public List<Resource> getHasAccessTo() {
-        return hasAccessTo;
+    public List<Resource> getResources() {
+        return resources;
     }
 
-    public void addResource(Resource resource) {
-        if (this.hasAccessTo == null) {
-            this.hasAccessTo = new ArrayList<>();
-        }
-        this.hasAccessTo.add(resource);
-    }
-    public void setHasAccessTo(List<Resource> hasAccessTo) {
-        this.hasAccessTo = hasAccessTo;
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }

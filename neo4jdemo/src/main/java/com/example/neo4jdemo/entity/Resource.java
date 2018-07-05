@@ -18,38 +18,23 @@ public class Resource {
 
     private String route;
 
-    @JsonIgnoreProperties("hasAccessTo")
+    @JsonIgnoreProperties("resource")
     @Relationship(type = "HAS_ACCESS", direction = Relationship.INCOMING)
-    public Set<Access> hasAccessTo;
+    public Set<Access> groupsWithAccess;
 
-    public Resource(){
-        hasAccessTo = new HashSet<>();
-    }
     public String getRoute() {
         return route;
     }
-
 
     public void setRoute(String route) {
         this.route = route;
     }
 
-    public void setAccess(Access access){
-        hasAccessTo.add(access);
+    public Set<Access> getGroupsWithAccess() {
+        return groupsWithAccess;
     }
 
-    public boolean deleteAccess(Access access){
-        if(hasAccessTo.contains(access)){
-           return hasAccessTo.remove(access);
-        }
-        return false;
-    }
-
-    public Set<Access> getHasAccessTo() {
-        return hasAccessTo;
-    }
-
-    public void setHasAccessTo(Set<Access> hasAccessTo) {
-        this.hasAccessTo = hasAccessTo;
+    public void setGroupsWithAccess(Set<Access> groupsWithAccess) {
+        this.groupsWithAccess = groupsWithAccess;
     }
 }

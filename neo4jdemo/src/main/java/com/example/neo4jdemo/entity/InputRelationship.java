@@ -5,9 +5,18 @@ public class InputRelationship {
 
     private String groupName;
     private String route;
+    private String personName;
 
     public String getGroupName() {
         return groupName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 
     public void setGroupName(String groupName) {

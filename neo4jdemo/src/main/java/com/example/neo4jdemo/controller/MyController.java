@@ -2,18 +2,15 @@ package com.example.neo4jdemo.controller;
 
 import com.example.neo4jdemo.entity.*;
 import com.example.neo4jdemo.repository.AccessRepository;
-import com.example.neo4jdemo.service.AccessService;
-import com.example.neo4jdemo.service.GroupService;
-import com.example.neo4jdemo.service.PersonService;
-import com.example.neo4jdemo.service.ResourceService;
+import com.example.neo4jdemo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-//@RequestMapping("/")
 public class MyController {
 
     @Autowired
@@ -27,6 +24,9 @@ public class MyController {
 
     @Autowired
     private AccessService accessService;
+
+    @Autowired
+    private MemberService memberService;
 
     //save person/user
     @RequestMapping(value="/person",method = RequestMethod.POST)
@@ -63,13 +63,28 @@ public class MyController {
         return resourceService.getResourceDetail(route);
     }
 
+    @RequestMapping(value="/groups/members",method = RequestMethod.GET)
+    public List<Map<String,Object>> getGroupWithMemberDetails() {
+        return groupService.getGroupWithMembers();
+    }
 
-    //create relationship
-    @RequestMapping(value="/relationship",method = RequestMethod.POST)
-    public Access createRelationship(@RequestBody InputRelationship body) {
+    //create  has access relationship
+    @RequestMapping(value="/relationship/hasaccess",method = RequestMethod.POST)
+    public Access createRelationshipHasAccess(@RequestBody InputRelationship body) {
 
         return accessService.createRelationship(body);
     }
 
+    //create belongs to relationship
+    @RequestMapping(value="/relationship/belongsto",method = RequestMethod.POST)
+    public Member createRelationshipBelongsTo(@RequestBody InputRelationship body) {
 
+        return memberService.createRelation(body.getPersonName(),body.getGroupName());
+    }
+
+    //access management
+    @RequestMapping(value = "/check",method = RequestMethod.POST)
+    public Boolean checkAccessToResource(@RequestBody InputRelationship body){
+                return groupService.checkPersonAccess(body.getPersonName(),body.getRoute());
+    }
 }
