@@ -1,0 +1,80 @@
+POST /check HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 3468da92-4ce8-41c9-a808-6095e8ebf9e7
+
+{
+	 "route": "/v1/feedback",
+	 	"personName": "person3"
+}
+#################################################
+
+POST /relationship/belongsto HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: df910999-934a-45a7-8d30-e8d7f17919df
+
+{
+	"groupName": "group4",
+	"personName": "person1"
+}
+##############################################################
+
+
+POST /relationship/hasaccess HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 620117a1-eeee-4f7f-8268-ed06f9f87795
+
+{
+	"groupName": "group3",
+ "route": "/v1/authoring"
+}
+########################################################
+
+POST /person HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: b10c3cd7-6090-4601-bc1e-89307a173142
+
+{
+	"name":"person6"
+}
+
+#############################################
+
+GET /resource//v1/customers/persons HTTP/1.1
+Host: localhost:8080
+Cache-Control: no-cache
+Postman-Token: 73cfc512-d5f5-4a21-ab3f-51fff8cf05f2
+
+##########################################################
+
+POST /group HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: ba6dba73-b737-4390-b275-e084a893db99
+
+{
+	"name":"group5"
+}
+
+#######################################################
+
+POST /resource HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 5ba01aed-108a-4c08-8f0d-d001567a3b4a
+
+{
+	"route":"/v1/file"
+}
+
+#########################################################
+
