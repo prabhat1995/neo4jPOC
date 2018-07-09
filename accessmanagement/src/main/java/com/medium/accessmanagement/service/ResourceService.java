@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Component
 public class ResourceService {
@@ -50,6 +51,21 @@ public class ResourceService {
         } else if (Arrays.asList(roles).contains("consumer"))
             role = "consumer";
 
-        return resourceRepository.checkAccess(role, body.getRoute());
+        String[] tokens = body.getRoute().split("/");
+        String microservice = tokens[1];
+        Collection<Resource> routes =  resourceRepository.findByMicroserviceId(microservice);
+        Iterator<Resource> resources = routes.iterator();
+        String route = null;
+        while (resources.hasNext()) {
+            Resource resource = resources.next();
+            if(Pattern.compile(resource.getRoute()).matcher(body.getRoute()).matches()){
+                route = resource.getRoute();
+                break;
+            } else {
+                System.out.println("route did not match");
+                return false;
+            }
+        }
+        return resourceRepository.checkAccess(role, route, routeMethod);
     }
 }
