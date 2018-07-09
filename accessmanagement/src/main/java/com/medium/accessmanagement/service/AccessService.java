@@ -24,7 +24,7 @@ public class AccessService {
 
     public Access createAccess(InputRelationship body){
         Group group = groupRepository.findByName(body.getGroupName());
-        Resource resource = resourceRepository.findByName(body.getRoute());
+        Resource resource = resourceRepository.findByRoute(body.getRoute());
 
         Access access = new Access();
         access.setGroup(group);

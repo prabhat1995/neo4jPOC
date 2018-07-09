@@ -25,8 +25,8 @@ public class ResourceService {
         return resourceRepository.save(resource);
     }
 
-    public Resource getResourceByName(String name){
-        return resourceRepository.findByName(name);
+    public Resource getResourceByName(String route){
+        return resourceRepository.findByRoute(route);
     }
 
     public Boolean checkPersonAccess(InputRelationship body){

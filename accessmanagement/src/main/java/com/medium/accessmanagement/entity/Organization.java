@@ -13,10 +13,12 @@ public class Organization {
     @Id
     @GeneratedValue
     private Long id;
+
     private  String organizationId;
     private String name;
     private String status;
 
+    @JsonIgnoreProperties("organization")
     @Relationship(type = "BELONGS_TO", direction = Relationship.INCOMING)
     public Set<Member> members;
 

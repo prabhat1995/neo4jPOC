@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface ResourceRepository extends Neo4jRepository<Resource, Long> {
-    public Resource findByName(@Param("name") String name);
+    public Resource findByRoute(@Param("route") String route);
 
     @Query("Match (r:Resource {microserviceId: {microservice}}) return r")
     public Collection<Resource> findByMicroserviceId(@Param("microserviceId") String microservice);

@@ -15,7 +15,6 @@ public class Group {
 
     private String name;
     private String accessOfRole;
-    private Set<String> methods;
 
     @JsonIgnoreProperties("group")
     @Relationship(type = "HAS_ACCESS")
@@ -35,14 +34,6 @@ public class Group {
 
     public void setAccessOfRole(String accessOfRole) {
         this.accessOfRole = accessOfRole;
-    }
-
-    public Set<String> getMethods() {
-        return methods;
-    }
-
-    public void setMethods(Set<String> methods) {
-        this.methods = methods;
     }
 
     public Set<Resource> getResources() {
