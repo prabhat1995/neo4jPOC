@@ -6,6 +6,9 @@ public class InputRelationship {
     private String organizationId;
     private String status;
     private String role;
+    private String groupName;
+    private String route;
+    private String routeMethod;
 
     public String getPersonId() {
         return personId;
@@ -37,5 +40,29 @@ public class InputRelationship {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public String getRouteMethod() {
+        return routeMethod;
+    }
+
+    public void setRouteMethod(String routeMethod) {
+        this.routeMethod = routeMethod;
     }
 }

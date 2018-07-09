@@ -13,6 +13,8 @@ public class Resource {
     private Long id;
 
     private String route;
+    private String method;
+    private String microserviceId;
 
     @JsonIgnoreProperties("resource")
     @Relationship(type = "HAS_ACCESS", direction = Relationship.INCOMING)
@@ -24,6 +26,22 @@ public class Resource {
 
     public void setRoute(String route) {
         this.route = route;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getMicroserviceId() {
+        return microserviceId;
+    }
+
+    public void setMicroserviceId(String microserviceId) {
+        this.microserviceId = microserviceId;
     }
 
     public Set<Group> getGroups() {
