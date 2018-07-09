@@ -48,8 +48,12 @@ public class ResourceService {
             role = "admin";
         } else if (Arrays.asList(roles).contains("author")){
             role = "author";
-        } else if (Arrays.asList(roles).contains("consumer"))
+        } else if (Arrays.asList(roles).contains("consumer")) {
             role = "consumer";
+        }else {
+            System.out.println("role not found");
+            return false;
+        }
 
         String[] tokens = body.getRoute().split("/");
         String microservice = tokens[1];
@@ -66,6 +70,6 @@ public class ResourceService {
                 return false;
             }
         }
-        return resourceRepository.checkAccess(role, route, routeMethod);
+        return resourceRepository.checkAccess(role, route, body.getRouteMethod());
     }
 }
