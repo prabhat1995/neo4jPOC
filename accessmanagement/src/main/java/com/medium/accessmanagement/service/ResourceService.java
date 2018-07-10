@@ -37,11 +37,13 @@ public class ResourceService {
         Set<String> roles = new HashSet<String>();
         Iterator<Organization> organizations = orgs.iterator();
         while (organizations.hasNext()) {
-            Organization group = organizations.next();
-            Iterator<Member> members = group.getMembers().iterator();
+            Organization organization = organizations.next();
+            Iterator<Member> members = organization.getMembers().iterator();
             while (members.hasNext()){
                 Member member = members.next();
-                roles.add(member.getRole());
+                if(member.getStatus().equals("active")) {
+                    roles.add(member.getRole());
+                }
             }
         }
 
