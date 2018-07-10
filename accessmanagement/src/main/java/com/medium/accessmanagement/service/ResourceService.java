@@ -25,8 +25,8 @@ public class ResourceService {
         return resourceRepository.save(resource);
     }
 
-    public Resource getResourceByName(String route){
-        return resourceRepository.findByRoute(route);
+    public Resource getResourceByName(String route, String method){
+        return resourceRepository.findByRoute(route, method);
     }
 
     public Boolean checkPersonAccess(InputRelationship body){
@@ -34,7 +34,7 @@ public class ResourceService {
         Collection<Organization> orgs = organizationRepository.getOrganizationsForPerson(body.getPersonId());
 
         String role = null;
-        List<String> roles = new ArrayList<>();
+        Set<String> roles = new HashSet<String>();
         Iterator<Organization> organizations = orgs.iterator();
         while (organizations.hasNext()) {
             Organization group = organizations.next();
@@ -44,11 +44,12 @@ public class ResourceService {
                 roles.add(member.getRole());
             }
         }
-        if(Arrays.asList(roles).contains("admin")){
+
+        if(roles.contains("admin")){
             role = "admin";
-        } else if (Arrays.asList(roles).contains("author")){
+        } else if (roles.contains("author")){
             role = "author";
-        } else if (Arrays.asList(roles).contains("consumer")) {
+        } else if (roles.contains("consumer")) {
             role = "consumer";
         }else {
             System.out.println("role not found");
@@ -56,19 +57,22 @@ public class ResourceService {
         }
 
         String[] tokens = body.getRoute().split("/");
-        String microservice = tokens[1];
+        String microservice = tokens[2];
         Collection<Resource> routes =  resourceRepository.findByMicroserviceId(microservice);
         Iterator<Resource> resources = routes.iterator();
         String route = null;
+        Boolean matchFlag = false;
         while (resources.hasNext()) {
             Resource resource = resources.next();
             if(Pattern.compile(resource.getRoute()).matcher(body.getRoute()).matches()){
                 route = resource.getRoute();
+                matchFlag = true;
                 break;
-            } else {
-                System.out.println("route did not match");
-                return false;
             }
+        }
+        if(!matchFlag){
+            System.out.println("route did not match");
+            return false;
         }
         return resourceRepository.checkAccess(role, route, body.getRouteMethod());
     }
