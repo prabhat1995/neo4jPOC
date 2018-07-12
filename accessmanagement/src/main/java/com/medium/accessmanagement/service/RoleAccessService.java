@@ -29,7 +29,7 @@ public class RoleAccessService {
         Person person = personRepository.findByPersonId(body.getPersonId());
         Role role = roleRepository.findByName(body.getRole());
 
-        RoleAccess relationship = roleAccessRepository.f
+        RoleAccess relationship = roleAccessRepository.findOrganizationIdsForPersonRole(body.getRole(), body.getPersonId(), body.getOrganizationId());
         Set<String> organizationIds = relationship.getOrganizationIds();
         organizationIds.add(body.getOrganizationId());
 
