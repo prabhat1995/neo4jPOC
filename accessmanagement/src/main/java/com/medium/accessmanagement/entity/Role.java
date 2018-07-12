@@ -8,17 +8,25 @@ import org.neo4j.ogm.annotation.Relationship;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class Group {
+public class Role {
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
-    private String accessOfRole;
 
-    @JsonIgnoreProperties("group")
+    @JsonIgnoreProperties("role")
     @Relationship(type = "HAS_ACCESS")
     public Set<Resource> resources;
+
+    @JsonIgnoreProperties("role")
+    @Relationship(type = "HAS_ROLE", direction = Relationship.INCOMING)
+    public Set<HasRole> groupRoles;
+
+    @JsonIgnoreProperties("role")
+    @Relationship(type = "IS_A", direction = Relationship.INCOMING)
+    public Set<RoleAccess> personRoles;
+
 
     public String getName() {
         return name;
@@ -26,14 +34,6 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAccessOfRole() {
-        return accessOfRole;
-    }
-
-    public void setAccessOfRole(String accessOfRole) {
-        this.accessOfRole = accessOfRole;
     }
 
     public Set<Resource> getResources() {

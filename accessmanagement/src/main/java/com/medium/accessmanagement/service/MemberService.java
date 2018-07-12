@@ -30,7 +30,6 @@ public class MemberService {
         member.setPerson(person);
         member.setOrganization(organization);
         member.setStatus(body.getStatus());
-        member.setRole(body.getRole());
 
         return memberRepository.save(member);
     }

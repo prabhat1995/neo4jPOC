@@ -15,7 +15,7 @@ public class Controller {
     OrganizationService organizationService;
 
     @Autowired
-    GroupService groupService;
+    RoleService roleService;
 
     @Autowired
     ResourceService resourceService;
@@ -25,6 +25,18 @@ public class Controller {
 
     @Autowired
     AccessService accessService;
+
+    @Autowired
+    RoleGroupService roleGroupService;
+
+    @Autowired
+    HasGroupService hasGroupService;
+
+    @Autowired
+    HasRoleService hasRoleService;
+
+    @Autowired
+    RoleAccessService roleAccessService;
 
     @PostMapping("/persons")
     public Person savePerson(@RequestBody Person person){
@@ -36,9 +48,9 @@ public class Controller {
         return organizationService.saveOrganization(organization);
     }
 
-    @PostMapping("/groups")
-    public Group saveGroup(@RequestBody Group group){
-        return groupService.saveGroup(group);
+    @PostMapping("/roles")
+    public Role saveRole(@RequestBody Role role){
+        return roleService.saveRole(role);
     }
 
     @PostMapping("/resources")
@@ -46,11 +58,30 @@ public class Controller {
         return resourceService.saveResource(resource);
     }
 
+    @PostMapping("/rolegroups")
+    public RoleGroup saveRoleGroup(@RequestBody RoleGroup roleGroup){
+        return roleGroupService.saveRoleGroup(roleGroup);
+    }
+
     @PostMapping("/relationship/belongsto")
     public Member createRelationshipBelongsTo(@RequestBody InputRelationship body){
         return memberService.createRelationship(body);
     }
 
+    @PostMapping("/relationship/hasgroup")
+    public HasGroup createRelationshipHasGroup(@RequestBody InputRelationship body){
+        return hasGroupService.createRelationship(body);
+    }
+
+    @PostMapping("/relationship/hasrole")
+    public HasRole createRelationshipHasRole(@RequestBody InputRelationship body){
+        return hasRoleService.createRelationShip(body);
+    }
+
+    @PostMapping("/relationship/roleaccess")
+    public RoleAccess createRelationshipForRoleAccess(@RequestBody InputRelationship body){
+        return roleAccessService.createRelationship(body);
+    }
     @PostMapping("/relationship/hasaccess")
     public Access createRelationshipHasAccess(@RequestBody InputRelationship body){
         return accessService.createAccess(body);

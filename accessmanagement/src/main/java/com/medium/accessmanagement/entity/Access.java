@@ -9,17 +9,17 @@ public class Access {
     private Long id;
 
     @StartNode
-    private Group group;
+    private Role role;
 
     @EndNode
     private Resource resource;
 
-    public Group getGroup() {
-        return group;
+    public Role getRole() {
+        return role;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Resource getResource() {

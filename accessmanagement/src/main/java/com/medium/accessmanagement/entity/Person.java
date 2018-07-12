@@ -21,6 +21,10 @@ public class Person {
     @Relationship(type = "BELONGS_TO")
     public Set<Organization> organizations;
 
+    @JsonIgnoreProperties("person")
+    @Relationship(type = "IS_A")
+    public Set<Role> roles;
+
     public String getPersonId() {
         return personId;
     }
@@ -29,11 +33,19 @@ public class Person {
         this.personId = personId;
     }
 
-    public Set<Organization> getOrganization() {
+    public Set<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganization(Set<Organization> organizations) {
+    public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
