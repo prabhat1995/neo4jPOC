@@ -9,8 +9,9 @@ import com.medium.accessmanagement.repository.OrganizationRepository;
 import com.medium.accessmanagement.repository.RoleGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class HasGroupService {
 
     @Autowired

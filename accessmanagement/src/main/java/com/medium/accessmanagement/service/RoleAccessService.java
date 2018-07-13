@@ -9,11 +9,12 @@ import com.medium.accessmanagement.repository.RoleAccessRepository;
 import com.medium.accessmanagement.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Service
 public class RoleAccessService {
 
     @Autowired
@@ -25,18 +26,37 @@ public class RoleAccessService {
     @Autowired
     RoleRepository roleRepository;
 
+//    public RoleAccess createRelationship(InputRelationship body){
+//        Person person = personRepository.findByPersonId(body.getPersonId());
+//        Role role = roleRepository.findByName(body.getRole());
+//
+//        Set<String> organizationIds = new HashSet<>();
+//        organizationIds.add(body.getOrganizationId());
+//
+//        RoleAccess relationship = new RoleAccess();
+//        relationship.setPerson(person);
+//        relationship.setRole(role);
+//        relationship.setOrganizationIds(organizationIds);
+//
+//        return roleAccessRepository.save(relationship);
+//    }
     public RoleAccess createRelationship(InputRelationship body){
         Person person = personRepository.findByPersonId(body.getPersonId());
         Role role = roleRepository.findByName(body.getRole());
-
-        RoleAccess relationship = roleAccessRepository.findOrganizationIdsForPersonRole(body.getRole(), body.getPersonId(), body.getOrganizationId());
-        Set<String> organizationIds = relationship.getOrganizationIds();
-        organizationIds.add(body.getOrganizationId());
+        Set<String> organizationIds;
+        RoleAccess relationship = roleAccessRepository.findOrganizationIdsForPersonRole(body.getRole(), body.getPersonId(), body.getOrganizationId(), body.getRoleGroupName());
+        if(relationship != null) {
+            organizationIds = relationship.getOrganizationIds();
+            organizationIds.add(body.getOrganizationId());
+        }else{
+            relationship = new RoleAccess();
+            organizationIds = new HashSet<>();
+            organizationIds.add(body.getOrganizationId());
+        }
 
         relationship.setPerson(person);
         relationship.setRole(role);
         relationship.setOrganizationIds(organizationIds);
-
         return roleAccessRepository.save(relationship);
     }
 }

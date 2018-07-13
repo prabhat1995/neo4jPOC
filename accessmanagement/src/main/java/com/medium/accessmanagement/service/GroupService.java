@@ -4,8 +4,9 @@ import com.medium.accessmanagement.entity.Role;
 import com.medium.accessmanagement.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class GroupService {
 
     @Autowired

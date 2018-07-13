@@ -3,16 +3,20 @@ package com.medium.accessmanagement.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
+@NodeEntity
 public class Role {
     @Id
     @GeneratedValue
     private Long id;
 
+    private String roleId;
     private String name;
 
     @JsonIgnoreProperties("role")
@@ -27,6 +31,17 @@ public class Role {
     @Relationship(type = "IS_A", direction = Relationship.INCOMING)
     public Set<RoleAccess> personRoles;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
     public String getName() {
         return name;
@@ -42,5 +57,21 @@ public class Role {
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
+    }
+
+    public Set<HasRole> getGroupRoles() {
+        return groupRoles;
+    }
+
+    public void setGroupRoles(Set<HasRole> groupRoles) {
+        this.groupRoles = groupRoles;
+    }
+
+    public Set<RoleAccess> getPersonRoles() {
+        return personRoles;
+    }
+
+    public void setPersonRoles(Set<RoleAccess> personRoles) {
+        this.personRoles = personRoles;
     }
 }

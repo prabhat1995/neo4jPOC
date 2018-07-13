@@ -3,10 +3,12 @@ package com.medium.accessmanagement.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Set;
 
+@NodeEntity
 public class Resource {
     @Id
     @GeneratedValue
