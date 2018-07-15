@@ -6,9 +6,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 
 @NodeEntity
 public class Role {
@@ -21,15 +19,15 @@ public class Role {
 
     @JsonIgnoreProperties("role")
     @Relationship(type = "HAS_ACCESS")
-    public Set<Resource> resources;
+    private Set<Resource> resources;
 
     @JsonIgnoreProperties("role")
     @Relationship(type = "HAS_ROLE", direction = Relationship.INCOMING)
-    public Set<HasRole> groupRoles;
+    private Set<HasRole> groupRoles;
 
     @JsonIgnoreProperties("role")
     @Relationship(type = "IS_A", direction = Relationship.INCOMING)
-    public Set<RoleAccess> personRoles;
+    private Set<RoleAccess> personRoles;
 
     public Long getId() {
         return id;

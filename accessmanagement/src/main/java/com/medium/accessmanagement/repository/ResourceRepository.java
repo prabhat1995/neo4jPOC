@@ -15,6 +15,6 @@ public interface ResourceRepository extends Neo4jRepository<Resource, Long> {
     @Query("Match (r:Resource {microserviceId: {microserviceId}}) return r")
     public Collection<Resource> findByMicroserviceId(@Param("microserviceId") String microserviceId);
 
-    @Query("Match (role:Role {roleId:{priorityRoleId}})<-[roleRel:HAS_ROLE]-(rg:RoleGroup)<-[groupRel:HAS_GROUP]-(org:Organization)<-[member:BELONGS_TO {status:\"active\"}]-(p:Person {personId: {personId}})-[personRel:IS_A]->(role:Role {roleId:{priorityRoleId}})-[rel:HAS_ACCESS]->(res:Resource {route:{route}}) return count(role) > 0 as c")
-    public Boolean checkAccess(@Param("personId") String personId, @Param("priorityRoleId") String priorityRoleId, @Param("route") String route, @Param("method") String method);
+    @Query("Match (role:Role {roleId:{roleId}})<-[roleRel:HAS_ROLE]-(rg:RoleGroup)<-[groupRel:HAS_GROUP]-(org:Organization)<-[member:BELONGS_TO {status:\"active\"}]-(p:Person {personId: {personId}})-[personRel:IS_A]->(role:Role {roleId:{roleId}})-[rel:HAS_ACCESS]->(res:Resource {route:{route}, method:{method}}) return count(role) > 0 as c")
+    public Boolean checkAccess(@Param("personId") String personId, @Param("roleId") String roleId, @Param("route") String route, @Param("method") String method);
 }
