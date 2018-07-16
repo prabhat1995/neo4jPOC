@@ -5,7 +5,6 @@ import com.medium.accessmanagement.repository.OrganizationRepository;
 import com.medium.accessmanagement.repository.ResourceRepository;
 import com.medium.accessmanagement.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

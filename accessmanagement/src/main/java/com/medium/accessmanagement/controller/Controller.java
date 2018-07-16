@@ -49,8 +49,8 @@ public class Controller {
     }
 
     @PostMapping("/roles")
-    public Role saveRole(@RequestBody Role role){
-        return roleService.saveRole(role);
+    public HasRole saveRole(@RequestBody InputRelationship body){
+        return roleService.saveRole(body);
     }
 
     @PostMapping("/resources")

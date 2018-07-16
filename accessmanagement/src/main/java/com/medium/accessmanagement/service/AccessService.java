@@ -8,7 +8,6 @@ import com.medium.accessmanagement.repository.AccessRepository;
 import com.medium.accessmanagement.repository.RoleRepository;
 import com.medium.accessmanagement.repository.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
