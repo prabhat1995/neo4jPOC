@@ -44,4 +44,15 @@ public class RoleAccessService {
         relationship.setOrganizationIds(organizationIds);
         return roleAccessRepository.save(relationship);
     }
+
+    public RoleAccess updateRelationshipForRoleAccess(InputRelationship body){
+        Person person = personRepository.findByPersonId(body.getPersonId());
+        Role role = roleRepository.findByNameAndRoleGroup(body.getRole(), body.getRoleGroupName());
+        Set<String> organizationIds;
+        RoleAccess relationship = roleAccessRepository.findRoleAccessForPerson(body.getPersonId(), body.getOrganizationId(), body.getRoleGroupName());
+
+        roleAccessRepository.delete(relationship);
+
+        return createRelationship(body);
+    }
 }

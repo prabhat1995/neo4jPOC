@@ -23,7 +23,7 @@ public class AccessService {
     ResourceRepository resourceRepository;
 
     public Access createAccess(InputRelationship body){
-        Role role = roleRepository.findByName(body.getRole());
+        Role role = roleRepository.findByNameAndRoleGroup(body.getRole(), body.getRoleGroupName());
         Resource resource = resourceRepository.findByRoute(body.getRoute(), body.getRouteMethod());
 
         Access access = new Access();

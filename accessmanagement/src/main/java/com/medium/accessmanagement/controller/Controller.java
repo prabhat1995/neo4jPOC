@@ -3,6 +3,7 @@ package com.medium.accessmanagement.controller;
 import com.medium.accessmanagement.entity.*;
 import com.medium.accessmanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -48,6 +49,11 @@ public class Controller {
         return organizationService.saveOrganization(organization);
     }
 
+    @PutMapping("/organizations")
+    public Organization updateOrganization(@RequestBody InputRelationship body){
+        return organizationService.updateOrganization(body);
+    }
+
     @PostMapping("/roles")
     public HasRole saveRole(@RequestBody InputRelationship body){
         return roleService.saveRole(body);
@@ -68,6 +74,17 @@ public class Controller {
         return memberService.createRelationship(body);
     }
 
+    @PutMapping("/relationship/belongsto")
+    public Member updateRelationshipBelongsTo(@RequestBody InputRelationship body){
+        return memberService.updateRelationship(body);
+    }
+
+    @DeleteMapping("/relationship/organizations/{orgId}/persons/{personId}")
+    public void updateRelationshipBelongsTo(@PathVariable("orgId") String orgId, @PathVariable("personId") String personId){
+        memberService.deleteMember(orgId, personId);
+        return;
+    }
+
     @PostMapping("/relationship/hasgroup")
     public HasGroup createRelationshipHasGroup(@RequestBody InputRelationship body){
         return hasGroupService.createRelationship(body);
@@ -82,6 +99,12 @@ public class Controller {
     public RoleAccess createRelationshipForRoleAccess(@RequestBody InputRelationship body){
         return roleAccessService.createRelationship(body);
     }
+
+    @PutMapping("/relationship/roleaccess")
+    public RoleAccess updateRelationshipForRoleAccess(@RequestBody InputRelationship body){
+        return roleAccessService.updateRelationshipForRoleAccess(body);
+    }
+
     @PostMapping("/relationship/hasaccess")
     public Access createRelationshipHasAccess(@RequestBody InputRelationship body){
         return accessService.createAccess(body);

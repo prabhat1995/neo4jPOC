@@ -33,4 +33,22 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
+
+    public Member updateRelationship(InputRelationship body){
+
+        Member member = memberRepository.findByPersonIdAndOrganizationId(body.getPersonId(), body.getOrganizationId());
+        member.setStatus(body.getStatus());
+
+        return memberRepository.save(member);
+    }
+
+    public void deleteMember(String orgId, String personId){
+
+        Member member = memberRepository.findByPersonIdAndOrganizationId(personId, orgId);
+
+        memberRepository.deleteRoleAccess(personId, orgId);
+        memberRepository.delete(member);
+
+        return;
+    }
 }
