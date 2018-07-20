@@ -53,13 +53,16 @@ public class ResourceService {
 
         Collection<Role> personRoles = roleRepository.findByPersonId(body.getPersonId());
 
-        Boolean access = false;
+        Boolean accessFlage = false;
 
         Iterator<Role> roleIterator = personRoles.iterator();
         while (roleIterator.hasNext()) {
             Role role = roleIterator.next();
-            access = resourceRepository.checkAccess(body.getPersonId(), role.getRoleId(), route, body.getRouteMethod());
+            Boolean access = resourceRepository.checkAccess(body.getPersonId(), role.getRoleId(), route, body.getRouteMethod());
+            if (access) {
+                accessFlage = true;
+            }
         }
-        return access;
+        return accessFlage;
     }
 }
