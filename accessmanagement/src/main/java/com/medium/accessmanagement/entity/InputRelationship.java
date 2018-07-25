@@ -9,6 +9,7 @@ public class InputRelationship {
     private String groupName;
     private String route;
     private String routeMethod;
+    private String roleGroupName;
 
     public String getPersonId() {
         return personId;
@@ -64,5 +65,13 @@ public class InputRelationship {
 
     public void setRouteMethod(String routeMethod) {
         this.routeMethod = routeMethod;
+    }
+
+    public String getRoleGroupName() {
+        return roleGroupName;
+    }
+
+    public void setRoleGroupName(String roleGroupName) {
+        this.roleGroupName = roleGroupName;
     }
 }

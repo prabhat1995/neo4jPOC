@@ -9,7 +9,6 @@ public class Member {
     private Long id;
 
     private String status;
-    private  String role;
 
     @StartNode
     private Person person;
@@ -23,14 +22,6 @@ public class Member {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public Person getPerson() {

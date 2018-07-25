@@ -1,22 +1,21 @@
 package com.medium.accessmanagement.service;
 
-import com.medium.accessmanagement.entity.Group;
-import com.medium.accessmanagement.entity.InputRelationship;
-import com.medium.accessmanagement.repository.GroupRepository;
+import com.medium.accessmanagement.entity.Role;
+import com.medium.accessmanagement.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class GroupService {
 
     @Autowired
-    GroupRepository groupRepository;
+    RoleRepository roleRepository;
 
-    public Group saveGroup(Group group){
-        return groupRepository.save(group);
+    public Role saveRole(Role role){
+        return roleRepository.save(role);
     }
 
-    public Group findByName(String name){
-        return groupRepository.findByName(name);
+    public Role findByName(String name){
+        return roleRepository.findByName(name);
     }
 }

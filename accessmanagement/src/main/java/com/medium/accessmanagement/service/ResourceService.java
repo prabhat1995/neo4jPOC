@@ -1,18 +1,16 @@
 package com.medium.accessmanagement.service;
 
-import com.medium.accessmanagement.entity.InputRelationship;
-import com.medium.accessmanagement.entity.Member;
-import com.medium.accessmanagement.entity.Organization;
-import com.medium.accessmanagement.entity.Resource;
+import com.medium.accessmanagement.entity.*;
 import com.medium.accessmanagement.repository.OrganizationRepository;
 import com.medium.accessmanagement.repository.ResourceRepository;
+import com.medium.accessmanagement.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.regex.Pattern;
 
-@Component
+@Service
 public class ResourceService {
 
     @Autowired
@@ -20,6 +18,9 @@ public class ResourceService {
 
     @Autowired
     OrganizationRepository organizationRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     public Resource saveResource(Resource resource){
         return resourceRepository.save(resource);
@@ -30,33 +31,6 @@ public class ResourceService {
     }
 
     public Boolean checkPersonAccess(InputRelationship body){
-
-        Collection<Organization> orgs = organizationRepository.getOrganizationsForPerson(body.getPersonId());
-
-        String role = null;
-        Set<String> roles = new HashSet<String>();
-        Iterator<Organization> organizations = orgs.iterator();
-        while (organizations.hasNext()) {
-            Organization organization = organizations.next();
-            Iterator<Member> members = organization.getMembers().iterator();
-            while (members.hasNext()){
-                Member member = members.next();
-                if(member.getStatus().equals("active")) {
-                    roles.add(member.getRole());
-                }
-            }
-        }
-
-        if(roles.contains("admin")){
-            role = "admin";
-        } else if (roles.contains("author")){
-            role = "author";
-        } else if (roles.contains("consumer")) {
-            role = "consumer";
-        }else {
-            System.out.println("role not found");
-            return false;
-        }
 
         String[] tokens = body.getRoute().split("/");
         String microservice = tokens[2];
@@ -76,6 +50,19 @@ public class ResourceService {
             System.out.println("route did not match");
             return false;
         }
-        return resourceRepository.checkAccess(role, route, body.getRouteMethod());
+
+        Collection<Role> personRoles = roleRepository.findByPersonId(body.getPersonId());
+
+        Boolean accessFlage = false;
+
+        Iterator<Role> roleIterator = personRoles.iterator();
+        while (roleIterator.hasNext()) {
+            Role role = roleIterator.next();
+            Boolean access = resourceRepository.checkAccess(body.getPersonId(), role.getRoleId(), route, body.getRouteMethod());
+            if (access) {
+                accessFlage = true;
+            }
+        }
+        return accessFlage;
     }
 }

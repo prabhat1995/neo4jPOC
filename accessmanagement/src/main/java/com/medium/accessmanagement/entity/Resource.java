@@ -3,10 +3,12 @@ package com.medium.accessmanagement.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Set;
 
+@NodeEntity
 public class Resource {
     @Id
     @GeneratedValue
@@ -18,7 +20,7 @@ public class Resource {
 
     @JsonIgnoreProperties("resource")
     @Relationship(type = "HAS_ACCESS", direction = Relationship.INCOMING)
-    public Set<Group> groups;
+    public Set<Role> roles;
 
     public String getRoute() {
         return route;
@@ -44,11 +46,11 @@ public class Resource {
         this.microserviceId = microserviceId;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

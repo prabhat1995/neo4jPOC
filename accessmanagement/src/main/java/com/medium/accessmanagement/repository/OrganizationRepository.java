@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface OrganizationRepository extends Neo4jRepository<Organization, Long> {
+
     public Organization findByOrganizationId(@Param("organizationId") String organizationId);
 
     @Query("Match (o:Organization)<-[r:BELONGS_TO]-(p:Person {personId: {personId}}) return o,r,p")

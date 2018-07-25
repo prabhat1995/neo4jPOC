@@ -22,6 +22,10 @@ public class Organization {
     @Relationship(type = "BELONGS_TO", direction = Relationship.INCOMING)
     public Set<Member> members;
 
+    @JsonIgnoreProperties("organization")
+    @Relationship(type = "HAS_GROUP")
+    public Set<RoleGroup> roleGroups;
+
     public String getOrganizationId() {
         return organizationId;
     }
@@ -52,5 +56,13 @@ public class Organization {
 
     public void setMembers(Set<Member> members) {
         this.members = members;
+    }
+
+    public Set<RoleGroup> getRoleGroups() {
+        return roleGroups;
+    }
+
+    public void setRoleGroups(Set<RoleGroup> roleGroups) {
+        this.roleGroups = roleGroups;
     }
 }
