@@ -16,6 +16,7 @@ public class Person {
     private Long id;
 
     private String personId;
+    private String email;
 
     @JsonIgnoreProperties("person")
     @Relationship(type = "BELONGS_TO")
@@ -31,6 +32,14 @@ public class Person {
 
     public void setPersonId(String personId) {
         this.personId = personId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<Organization> getOrganizations() {

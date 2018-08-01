@@ -6,4 +6,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends Neo4jRepository<Person, Long> {
     public Person findByPersonId(@Param("personId") String personId);
+    public Person findByEmail(@Param("email") String email);
 }

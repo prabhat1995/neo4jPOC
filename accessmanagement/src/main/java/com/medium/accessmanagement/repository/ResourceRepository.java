@@ -17,4 +17,7 @@ public interface ResourceRepository extends Neo4jRepository<Resource, Long> {
 
     @Query("Match (role:Role {roleId:{roleId}})<-[roleRel:HAS_ROLE]-(rg:RoleGroup)<-[groupRel:HAS_GROUP]-(org:Organization {status:\"active\"})<-[member:BELONGS_TO {status:\"active\"}]-(p:Person {personId: {personId}})-[personRel:IS_A]->(role:Role {roleId:{roleId}})-[rel:HAS_ACCESS]->(res:Resource {route:{route}, method:{method}}) return count(role) > 0 as c")
     public Boolean checkAccess(@Param("personId") String personId, @Param("roleId") String roleId, @Param("route") String route, @Param("method") String method);
+
+    @Query("Match (role:Role {name:{role}})<-[roleRel:HAS_ROLE]-(rg:RoleGroup {name: {roleGroup}})<-[groupRel:HAS_GROUP]-(org:Organization {status:\"active\"})<-[member:BELONGS_TO {status:\"active\"}]-(p:Person {personId: {personId}})-[personRel:IS_A]->(role:Role {name:{role}})-[rel:HAS_ACCESS]->(res:Resource) return res")
+    public Collection<Resource> getRoles(@Param("personId") String personId, @Param("role") String role, @Param("roleGroup") String roleGroup);
 }

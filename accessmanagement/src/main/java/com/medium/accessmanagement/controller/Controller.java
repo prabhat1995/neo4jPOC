@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 public class Controller {
 
@@ -60,8 +62,8 @@ public class Controller {
     }
 
     @PostMapping("/resources")
-    public Resource saveGroup(@RequestBody Resource resource){
-        return resourceService.saveResource(resource);
+    public Collection<Resource> saveGroup(@RequestBody Collection<Resource> resources){
+        return resourceService.saveResource(resources);
     }
 
     @PostMapping("/rolegroups")
@@ -113,5 +115,10 @@ public class Controller {
     @PostMapping("/relationship/check")
     public Boolean checkAccessToResource(@RequestBody InputRelationship body){
         return resourceService.checkPersonAccess(body);
+    }
+
+    @PostMapping("/access/routes")
+    public Collection<Resource> getAllRoutes(@RequestBody InputRelationship body){
+        return resourceService.getAllRoutesByRole(body);
     }
 }

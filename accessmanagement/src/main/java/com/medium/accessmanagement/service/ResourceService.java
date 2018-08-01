@@ -22,18 +22,30 @@ public class ResourceService {
     @Autowired
     RoleRepository roleRepository;
 
-    public Resource saveResource(Resource resource){
-        return resourceRepository.save(resource);
+    public Collection<Resource> saveResource(Collection<Resource> resources){
+        List<Resource> output = new ArrayList<>();
+        Iterator<Resource> routes = resources.iterator();
+        while (routes.hasNext()) {
+            Resource resource = routes.next();
+            output.add(resourceRepository.save(resource));
+        }
+        return output;
     }
 
     public Resource getResourceByName(String route, String method){
         return resourceRepository.findByRoute(route, method);
     }
 
+    public static final String[] microservices = new String[] {"account","auth","authoring","export","fileupload","notification","customer","feedback","search"};
     public Boolean checkPersonAccess(InputRelationship body){
-
+        String microservice = null;
         String[] tokens = body.getRoute().split("/");
-        String microservice = tokens[2];
+        for(int i=0; i<tokens.length; i++){
+            if(Arrays.asList(microservices).contains(tokens[i])){
+                microservice = tokens[i];
+                break;
+            }
+        }
         Collection<Resource> routes =  resourceRepository.findByMicroserviceId(microservice);
         Iterator<Resource> resources = routes.iterator();
         String route = null;
@@ -64,5 +76,9 @@ public class ResourceService {
             }
         }
         return accessFlage;
+    }
+
+    public Collection<Resource> getAllRoutesByRole(InputRelationship body){
+        return resourceRepository.getRoles(body.getPersonId(), body.getRole(), body.getRoleGroupName());
     }
 }
