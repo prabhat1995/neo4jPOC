@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.Collection;
 import java.util.Set;
 
 @NodeEntity
@@ -19,7 +20,7 @@ public class Role {
 
     @JsonIgnoreProperties("role")
     @Relationship(type = "HAS_ACCESS")
-    private Set<Resource> resources;
+    private Collection<Resource> resources;
 
     @JsonIgnoreProperties("role")
     @Relationship(type = "HAS_ROLE", direction = Relationship.INCOMING)
@@ -49,11 +50,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<Resource> getResources() {
+    public Collection<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(Set<Resource> resources) {
+    public void setResources(Collection<Resource> resources) {
         this.resources = resources;
     }
 

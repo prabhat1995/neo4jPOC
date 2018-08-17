@@ -121,4 +121,9 @@ public class Controller {
     public Collection<Resource> getAllRoutes(@RequestBody InputRelationship body){
         return resourceService.getAllRoutesByRole(body);
     }
+
+    @GetMapping("/routes")
+    public Collection<Routes> getAllRoutes(){
+         return roleGroupService.getAllRoutes();
+    }
 }

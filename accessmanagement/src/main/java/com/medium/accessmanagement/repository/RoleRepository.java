@@ -16,4 +16,7 @@ public interface RoleRepository extends Neo4jRepository<Role, Long> {
 
     @Query("Match (r:Role {name:{name}})<-[rel:HAS_ROLE]-(rg:RoleGroup {name:{roleGroupName}}) return r")
     public Role findByNameAndRoleGroup(@Param("name") String name, @Param("roleGroupName") String roleGroupName);
+
+    @Query("Match (r:Role)<-[rel:HAS_ROLE]-(rg:RoleGroup {name:{roleGroupName}}) return r")
+    public Collection<Role> findByRoleGroup(@Param("roleGroupName") String name);
 }

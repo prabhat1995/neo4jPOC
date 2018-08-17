@@ -3,6 +3,7 @@ package com.medium.accessmanagement.entity;
 public class InputRelationship {
 
     private String personId;
+    private String email;
     private String organizationId;
     private String status;
     private String role;
@@ -17,6 +18,14 @@ public class InputRelationship {
 
     public void setPersonId(String personId) {
         this.personId = personId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getOrganizationId() {

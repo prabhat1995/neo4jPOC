@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.Collection;
 import java.util.Set;
 
 @NodeEntity
@@ -21,9 +22,9 @@ public class RoleGroup {
     @Relationship(type = "HAS_GROUP", direction = Relationship.INCOMING)
     public Set<HasGroup> organizationRoleGroups;
 
-    @JsonIgnoreProperties("roleGroup")
+   // @JsonIgnoreProperties("roleGroup")
     @Relationship(type = "HAS_ROLE")
-    public Set<Role> roles;
+    public Collection<Role> roles;
 
     public String getName() {
         return name;
@@ -41,11 +42,11 @@ public class RoleGroup {
         this.organizationRoleGroups = organizationRoleGroups;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 }

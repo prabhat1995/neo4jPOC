@@ -79,6 +79,6 @@ public class ResourceService {
     }
 
     public Collection<Resource> getAllRoutesByRole(InputRelationship body){
-        return resourceRepository.getRoles(body.getPersonId(), body.getRole(), body.getRoleGroupName());
+        return resourceRepository.getRoles(body.getEmail(), body.getRole(), body.getRoleGroupName());
     }
 }
