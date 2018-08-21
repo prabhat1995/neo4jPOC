@@ -1,5 +1,6 @@
 package com.medium.accessmanagement.service;
 
+import com.medium.accessmanagement.constants.Microservice;
 import com.medium.accessmanagement.entity.*;
 import com.medium.accessmanagement.repository.OrganizationRepository;
 import com.medium.accessmanagement.repository.ResourceRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class ResourceService {
@@ -60,12 +62,17 @@ public class ResourceService {
         return resourceRepository.findByRoute(route, method);
     }
 
-    public static final String[] microservices = new String[] {"account","auth","authoring","export","fileupload","notification","customer","feedback","search"};
+
     public Boolean checkPersonAccess(InputRelationship body){
+
+        List<Microservice> list= Arrays.asList(Microservice.values());
+        List<String> names=list.stream().map(Enum::name).collect(Collectors.toList());
+
+        //String[] microservices = new String[] {"account","auth","authoring","export","fileupload","notification","customer","feedback","search"};
         String microservice = null;
         String[] tokens = body.getRoute().split("/");
         for(int i=0; i<tokens.length; i++){
-            if(Arrays.asList(microservices).contains(tokens[i])){
+            if(names.contains(tokens[i])){
                 microservice = tokens[i];
                 break;
             }
