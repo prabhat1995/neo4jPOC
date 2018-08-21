@@ -3,7 +3,6 @@ package com.medium.accessmanagement.controller;
 import com.medium.accessmanagement.entity.*;
 import com.medium.accessmanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -125,5 +124,10 @@ public class Controller {
     @GetMapping("/routes")
     public Collection<Routes> getAllRoutes(){
          return roleGroupService.getAllRoutes();
+    }
+
+    @PostMapping("/")
+    public String createNodeAndRelationship(){
+        return resourceService.createAllNodeAndRelationship();
     }
 }
